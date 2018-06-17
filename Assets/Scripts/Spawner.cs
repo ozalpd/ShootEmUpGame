@@ -25,15 +25,11 @@ public class Spawner : MonoBehaviour
 
     Transform player;
 
-    void Start()
+    //Start can be used as a coroutine
+    IEnumerator Start()
     {
         _remain = number;
-        StartCoroutine(Spawn());
-    }
 
-
-    IEnumerator Spawn()
-    {
         if (minDistToPlayer > 0)
         {
             GameObject playerGO = GameObject.FindGameObjectWithTag("Player");

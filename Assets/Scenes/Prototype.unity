@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reference: {fileID: 1749781095502084, guid: 67fe4b8a5cb6d477db06f49f9fbb303a, type: 2}
-  minRate: 7.1
+  minRate: 0.7
   maxRate: 9.2
   number: 77
   gameArea: {fileID: 1737709220}
