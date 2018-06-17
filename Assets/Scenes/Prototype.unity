@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d87d8a1949be41699be945bbb51a06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference: {fileID: 1749781095502084, guid: 67fe4b8a5cb6d477db06f49f9fbb303a, type: 2}
+  reference: {fileID: 1465918129423440, guid: df26c4f76eb94471b81372697e427475, type: 2}
   minRate: 0.7
   maxRate: 9.2
   number: 77
@@ -306,34 +306,6 @@ Transform:
   m_Father: {fileID: 1224243672}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!1 &927855195 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1214452585083520, guid: 1b69c8887024c42deaa64773a8c9411a,
-    type: 2}
-  m_PrefabInternal: {fileID: 1383473979}
---- !u!114 &927855198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 927855195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fba006118fa04c5c9faa9044469808a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &927855199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 927855195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b12878d680ebc46e9ade3c36dc192e40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameArea: {fileID: 1737709220}
 --- !u!1001 &1054637247
 Prefab:
   m_ObjectHideFlags: 0
@@ -550,15 +522,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 212443247631511050, guid: 1b69c8887024c42deaa64773a8c9411a,
+    - target: {fileID: 114307378313541560, guid: 1b69c8887024c42deaa64773a8c9411a,
         type: 2}
-      propertyPath: m_Sprite
+      propertyPath: gameArea
       value: 
-      objectReference: {fileID: 21300000, guid: 7ee30d6b34f7a4ca0ade4bbcd26c8dad,
-        type: 3}
-    - target: {fileID: 1214452585083520, guid: 1b69c8887024c42deaa64773a8c9411a, type: 2}
-      propertyPath: m_TagString
-      value: Player
+      objectReference: {fileID: 1737709220}
+    - target: {fileID: 114754793347579632, guid: 1b69c8887024c42deaa64773a8c9411a,
+        type: 2}
+      propertyPath: thrustMultiplier
+      value: 5.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b69c8887024c42deaa64773a8c9411a, type: 2}

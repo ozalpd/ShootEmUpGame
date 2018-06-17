@@ -37,6 +37,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4221652379718564}
   - component: {fileID: 212219437231220414}
+  - component: {fileID: 114754793347579632}
+  - component: {fileID: 114307378313541560}
+  - component: {fileID: 60208001417505192}
+  - component: {fileID: 50610638443945860}
   m_Layer: 0
   m_Name: SpaceShip
   m_TagString: Player
@@ -131,6 +135,75 @@ Transform:
   m_Father: {fileID: 4221652379718564}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!50 &50610638443945860
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1214452585083520}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 1
+  m_Mass: 1.5480804
+  m_LinearDrag: 1
+  m_AngularDrag: 1
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!60 &60208001417505192
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1214452585083520}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 102986bcccf804d8b871b4a518fdd2dd, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.9791666, y: 3.1458333}
+    newSize: {x: 0.95, y: 1.51}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.5615354, y: -0.7054948}
+      - {x: 0.41902158, y: -0.5045993}
+      - {x: 0.45174795, y: -0.5426872}
+      - {x: 0.3971871, y: -0.15627727}
+      - {x: 0.34513867, y: -0.40186703}
+      - {x: 0.28122205, y: -0.063436806}
+      - {x: 0.29640663, y: -0.09187639}
+      - {x: 0.18916155, y: -0.08796236}
+      - {x: 0.19788885, y: 0.9213786}
+      - {x: 0.057760067, y: 1.3191131}
+      - {x: -0.016093388, y: 1.3266921}
+      - {x: -0.09375, y: 1.211144}
+      - {x: -0.17330812, y: 0.93267655}
+      - {x: -0.17895699, y: -0.08463335}
+      - {x: -0.27557325, y: -0.08826882}
+      - {x: -0.31531042, y: -0.3285935}
+      - {x: -0.55395705, y: -0.63921976}
+      - {x: -0.57669187, y: -0.97065145}
+      - {x: -0.19400185, y: -1.1771114}
+      - {x: -0.18457782, y: -1.4631851}
+      - {x: -0.16950503, y: -1.4857801}
+      - {x: 0.16950512, y: -1.4933584}
+      - {x: 0.18653528, y: -1.2148911}
+      - {x: 0.53125, y: -1.014192}
+      - {x: 0.5539571, y: -0.9858082}
 --- !u!95 &95527331963879836
 Animator:
   serializedVersion: 3
@@ -149,6 +222,31 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114307378313541560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1214452585083520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b12878d680ebc46e9ade3c36dc192e40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameArea: {fileID: 0}
+--- !u!114 &114754793347579632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1214452585083520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fba006118fa04c5c9faa9044469808a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrustMultiplier: 4.2
+  steerMultiplier: 0.5
 --- !u!212 &212219437231220414
 SpriteRenderer:
   m_ObjectHideFlags: 1
