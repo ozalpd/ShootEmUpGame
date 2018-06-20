@@ -6,6 +6,7 @@ public class Spawner : MonoBehaviour
 {
     [Header("Spawn")]
     public GameObject reference;
+    public bool fromTop = false;
 
     [Header("Spawning")]
     [Range(0.001f, 100)]
@@ -17,13 +18,40 @@ public class Spawner : MonoBehaviour
     public int number = 5;
     int _remain;
 
+    [Range(0f, 180f)]
+    public float spreadAngle = 30;
+    [Range(0f, 360f)]
+    public float angle = 180;
+
+    [Range(1f, 10f)]
+    public float minSpeed = 5;
+    [Range(10f, 100f)]
+    public float maxSpeed = 15;
+
+
     [Header("Locations")]
     public GameArea gameArea;
 
     [Range(0, 6)]// When set to zero, it's disabled that checking for
     public float minDistToPlayer; // minimum distance to player's position 
 
+    [Header("Animator")]
+    [Range(1f, 10f)]
+    public float delayIn = 3;
+    [Range(1f, 10f)]
+    public float delayOut = 3;
+
     Transform player;
+    Animator _animator;
+    int _animatorSpawningId;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        if (_animator != null)
+            _animatorSpawningId = Animator.StringToHash("Spawning");
+    }
+
 
     //Start can be used as a coroutine
     IEnumerator Start()
@@ -39,9 +67,15 @@ public class Spawner : MonoBehaviour
                 Debug.LogWarning("No player found! Please assign a GameObject with a \"Player\" tag.");
         }
 
+        if (_animator != null)
+        {
+            _animator.SetBool(_animatorSpawningId, true);
+            yield return new WaitForSeconds(delayIn);
+        }
         while (_remain > 0)
         {
-            var randPos = gameArea.GetRandomPosition(player, minDistToPlayer);
+            var randPos = gameArea == null ? transform.position
+                                                    : gameArea.GetRandomPosition(player, minDistToPlayer, fromTop);
 
             //I'm keeping below statement as a visual debug sample
             if (player != null && Vector2.Distance(randPos, player.position) < minDistToPlayer)
@@ -53,10 +87,28 @@ public class Spawner : MonoBehaviour
                 Debug.Break();
             }
 
-            Instantiate(reference, randPos, new Quaternion(0, 0, 0, 0));
+            var go = (GameObject)Instantiate(reference, randPos, new Quaternion(0, 0, 0, 0));
+            var rb2d = go.GetComponent<Rigidbody2D>();
+            if (rb2d != null)
+            {
+                float direction = Random.Range(-spreadAngle * 0.5f, spreadAngle * 0.5f) + angle;
+                Vector2 velocity = new Vector2(
+                    Mathf.Sin(Mathf.Deg2Rad * direction),
+                    Mathf.Cos(Mathf.Deg2Rad * direction));
+                rb2d.velocity = velocity * Random.Range(minSpeed, maxSpeed);
+            }
+
             _remain -= 1;
 
             yield return new WaitForSeconds(1.0f / Random.Range(minRate, maxRate));
         }
+
+        if (_animator != null)
+        {
+            yield return new WaitForSeconds(delayOut);
+            _animator.SetBool(_animatorSpawningId, false);
+        }
+
+        gameObject.SetActive(false); //keep memory clean and don't tell anybody asteroids still remains in memory ;-)
     }
 }

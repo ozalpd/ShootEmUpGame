@@ -56,11 +56,11 @@ public class GameArea : MonoBehaviour
     /// <returns>A random position.</returns>
     /// <param name="player">Player's transformation.</param>
     /// <param name="minDistToPlayer">Minimum distance to player's position.</param>
-    public Vector3 GetRandomPosition(Transform player = null, float minDistToPlayer = 0)
+    public Vector3 GetRandomPosition(Transform player = null, float minDistToPlayer = 0, bool fromTop = false)
     {
         Vector3 randPos = new Vector3(
                         Random.Range(Area.xMin, Area.xMax),
-                        Random.Range(Area.yMin, Area.yMax),
+                        fromTop ? Area.yMax : Random.Range(Area.yMin, Area.yMax),
                         0);
 
         //Transforms position from local space to world space.
