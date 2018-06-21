@@ -434,16 +434,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114307378313541560, guid: 1b69c8887024c42deaa64773a8c9411a,
-        type: 2}
-      propertyPath: gameArea
-      value: 
-      objectReference: {fileID: 1737709220}
-    - target: {fileID: 114754793347579632, guid: 1b69c8887024c42deaa64773a8c9411a,
-        type: 2}
-      propertyPath: thrustMultiplier
-      value: 5.8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b69c8887024c42deaa64773a8c9411a, type: 2}
   m_IsPrefabParent: 0

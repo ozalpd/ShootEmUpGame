@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 212219437231220414}
   - component: {fileID: 114754793347579632}
   - component: {fileID: 114307378313541560}
+  - component: {fileID: 114016694084183472}
   - component: {fileID: 60208001417505192}
   - component: {fileID: 50610638443945860}
   m_Layer: 0
@@ -222,6 +223,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114016694084183472
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1214452585083520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d980a04cbd7446fb97b68a89ae70f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114307378313541560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -233,7 +245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12878d680ebc46e9ade3c36dc192e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameArea: {fileID: 0}
 --- !u!114 &114754793347579632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -245,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fba006118fa04c5c9faa9044469808a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrustMultiplier: 4.2
+  thrustMultiplier: 5.8
   steerMultiplier: 0.5
 --- !u!212 &212219437231220414
 SpriteRenderer:
