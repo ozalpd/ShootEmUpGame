@@ -14,7 +14,8 @@ public class TransformLooper : MonoBehaviour
             return gameArea.Area;
         }
     }
-    public GameArea gameArea;
+
+    GameArea gameArea { get { return GameArea.Main; } }
 
     //If we initiliazed this variable in the method fixPosition,
     //GC had to clear it for every screen refresh.

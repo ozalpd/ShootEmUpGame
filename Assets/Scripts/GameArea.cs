@@ -6,6 +6,12 @@
 [AddComponentMenu("OzzGames/Game Area")]
 public class GameArea : MonoBehaviour
 {
+    public GameArea()
+    {
+        if (_firstInstance == null)
+            _firstInstance = this;
+    }
+
     public Vector2 size;
     public Color gizmoColor = new Color(0, 0, 1, 0.2f);
     Color gizmoWireColor;
@@ -18,6 +24,21 @@ public class GameArea : MonoBehaviour
     [SerializeField]
     [HideInInspector]
     Rect _area;
+
+    public static GameArea Main
+    {
+        get
+        {
+            if (_firstInstance == null)
+            {
+                GameObject go = new GameObject("GameArea Main");
+                go.AddComponent<GameArea>(); //instantiating first one
+                go.AddComponent<FitGameAreaToCamera>();
+            }
+            return _firstInstance;
+        }
+    }
+    static GameArea _firstInstance;
 
     public Vector2 Size
     {

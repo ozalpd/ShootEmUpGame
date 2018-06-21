@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SpawnPosition
+{
+    RandomInTheGameArea = 0,
+    TopOfTheGameArea = 1,
+    TransformPosition = 3
+}
 public class Spawner : MonoBehaviour
 {
     [Header("Spawn")]
-    public GameObject reference;
-    public bool fromTop = false;
+    public GameObject[] reference;
+    public SpawnPosition spawnPosition;
 
     [Header("Spawning")]
     [Range(0.001f, 100)]
@@ -18,7 +24,7 @@ public class Spawner : MonoBehaviour
     public int number = 5;
     int _remain;
 
-    [Range(0f, 180f)]
+    [Range(0f, 360f)]
     public float spreadAngle = 30;
     [Range(0f, 360f)]
     public float angle = 180;
@@ -29,8 +35,7 @@ public class Spawner : MonoBehaviour
     public float maxSpeed = 15;
 
 
-    [Header("Locations")]
-    public GameArea gameArea;
+    GameArea gameArea;
 
     [Range(0, 6)]// When set to zero, it's disabled that checking for
     public float minDistToPlayer; // minimum distance to player's position 
@@ -50,6 +55,9 @@ public class Spawner : MonoBehaviour
         _animator = GetComponent<Animator>();
         if (_animator != null)
             _animatorSpawningId = Animator.StringToHash("Spawning");
+
+        if (gameArea == null)
+            gameArea = GameArea.Main;
     }
 
 
@@ -74,8 +82,10 @@ public class Spawner : MonoBehaviour
         }
         while (_remain > 0)
         {
-            var randPos = gameArea == null ? transform.position
-                                                    : gameArea.GetRandomPosition(player, minDistToPlayer, fromTop);
+            var randPos = gameArea != null
+                && (spawnPosition == SpawnPosition.RandomInTheGameArea || spawnPosition == SpawnPosition.TopOfTheGameArea)
+                ? gameArea.GetRandomPosition(player, minDistToPlayer, spawnPosition == SpawnPosition.TopOfTheGameArea)
+                          : transform.position;
 
             //I'm keeping below statement as a visual debug sample
             if (player != null && Vector2.Distance(randPos, player.position) < minDistToPlayer)
@@ -87,7 +97,10 @@ public class Spawner : MonoBehaviour
                 Debug.Break();
             }
 
-            var go = (GameObject)Instantiate(reference, randPos, new Quaternion(0, 0, 0, 0));
+            int i = Mathf.FloorToInt(Random.value * reference.Length);
+            var go = (GameObject)Instantiate(reference[i], randPos, new Quaternion(0, 0, 0, 0));
+            //TODO: use object pooling above.
+
             var rb2d = go.GetComponent<Rigidbody2D>();
             if (rb2d != null)
             {
