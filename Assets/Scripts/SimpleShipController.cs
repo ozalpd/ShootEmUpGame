@@ -9,7 +9,6 @@ public class SimpleShipController : MonoBehaviour
     [Range(0.05f, 2)]
     public float steerMultiplier = 0.5f;
 
-    //moved _delta here to make GC less busy
     Vector2 _delta = Vector2.zero;
     Vector2 _force = Vector2.zero;
     float _torque;
