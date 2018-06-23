@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SimpleShipController : MonoBehaviour
 {
-    [Range(0.25f,25)]
+    [Range(0.25f, 25)]
     public float thrustMultiplier = 2;
     [Range(0.05f, 2)]
     public float steerMultiplier = 0.5f;
@@ -14,11 +14,33 @@ public class SimpleShipController : MonoBehaviour
     float _torque;
 
     Rigidbody2D _rigidbody;
+    Weapon _weapon;
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();   
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _weapon = GetComponentInChildren<Weapon>();
     }
+
+    bool Firing
+    {
+        set
+        {
+            if (_firing != value)
+            {
+                _firing = value;
+                float repeatRate = 1 / _weapon.firingRate;
+                Debug.Log("repeatRate: " + repeatRate);
+
+                if (_firing)
+                        _weapon.InvokeRepeating("fire", 0.001f, repeatRate);
+                else
+                    _weapon.CancelInvoke("fire");
+            }
+        }
+        get { return _firing; }
+    }
+    bool _firing;
 
     void Update()
     {
@@ -26,15 +48,18 @@ public class SimpleShipController : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            speed = 0.25f;
+            float speed = 0.5f;
             if (touch.phase == TouchPhase.Moved)
             {
-                delta = touch.deltaPosition;
+                _delta = touch.deltaPosition * speed;
             }
+
+            Firing = (Input.touchCount > 1);
         }
 #else
         _delta.x = Input.GetAxis("Horizontal");
         _delta.y = Input.GetAxis("Vertical");
+        Firing = Input.GetButton("Fire2");
 #endif
         //transform.Translate(delta.x, delta.y, 0f);
         //driving ship with above control become impossible

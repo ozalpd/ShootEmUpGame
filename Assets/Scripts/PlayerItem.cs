@@ -29,7 +29,7 @@ public class PlayerItem : MonoBehaviour
         switch (itemType)
         {
             case ItemType.ExtraLife:
-                //TOOD: add life
+                GameManager.Lives++;
                 break;
 
             case ItemType.RepairKit:
