@@ -35,7 +35,7 @@ public class Spawner : MonoBehaviour
     public float maxSpeed = 15;
 
 
-    GameArea gameArea;
+    GameArea gameArea { get { return GameArea.Main; } }
 
     [Range(0, 6)]// When set to zero, it's disabled that checking for
     public float minDistToPlayer; // minimum distance to player's position 
@@ -55,9 +55,6 @@ public class Spawner : MonoBehaviour
         _animator = GetComponent<Animator>();
         if (_animator != null)
             _animatorSpawningId = Animator.StringToHash("Spawning");
-
-        if (gameArea == null)
-            gameArea = GameArea.Main;
     }
 
 
