@@ -33,7 +33,7 @@ public class SimpleShipController : MonoBehaviour
                 Debug.Log("repeatRate: " + repeatRate);
 
                 if (_firing)
-                        _weapon.InvokeRepeating("fire", 0.001f, repeatRate);
+                    _weapon.InvokeRepeating("fire", 0.001f, repeatRate);
                 else
                     _weapon.CancelInvoke("fire");
             }

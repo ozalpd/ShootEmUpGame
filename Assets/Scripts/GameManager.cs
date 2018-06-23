@@ -2,6 +2,8 @@
 
 public static class GameManager
 {
+    public const float maxDamage = 100;
+
     public static float Damage
     {
         get { return _damage; }
@@ -22,7 +24,26 @@ public static class GameManager
         }
     }
     static float _damage;
-    public const float maxDamage = 100;
+
+    public static int HighScore
+    {
+        get
+        {
+            if (_highScore == null)
+                _highScore = PlayerPrefs.GetInt("HighScore");
+            return _highScore.Value;
+        }
+        set
+        {
+            if (value > _highScore)
+            {
+                _highScore = value;
+                PlayerPrefs.SetInt("HighScore", _highScore.Value);
+                Debug.Log("New High Score: " + _highScore.Value);
+            }
+        }
+    }
+    static int? _highScore;
 
     public static int Lives
     {
@@ -41,4 +62,20 @@ public static class GameManager
         }
     }
     static int? _lives;
+
+    public static int Score
+    {
+        get { return _score; }
+        set
+        {
+            if (_score != value)
+            {
+                _score = value;
+                Debug.Log("Score: " + _score);
+                if (_score > HighScore)
+                    HighScore = _score;
+            }
+        }
+    }
+    static int _score;
 }

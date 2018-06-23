@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 95925999898585230}
   - component: {fileID: 50843892389190654}
   - component: {fileID: 58346668745791670}
+  - component: {fileID: 114346063225834816}
   m_Layer: 0
   m_Name: Asteroid_01_B
   m_TagString: Untagged
@@ -96,6 +97,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114346063225834816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1465918129423440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb0ad5889a41040a19ad360c684619b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 5
 --- !u!212 &212538122496099034
 SpriteRenderer:
   m_ObjectHideFlags: 1
