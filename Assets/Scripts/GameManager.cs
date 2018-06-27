@@ -2,7 +2,10 @@
 
 public static class GameManager
 {
-    public const float maxDamage = 100;
+    public delegate void DamageChange(float damage, float maxDamage);
+    public delegate void ScoreChange(int score);
+    public delegate void LivesChange(int lives);
+
 
     public static float Damage
     {
@@ -21,9 +24,14 @@ public static class GameManager
                 _damage = 0;
                 //TODO: do some noise
             }
+
+            if (DamageChanged != null)
+                DamageChanged(_damage, maxDamage);
         }
     }
     static float _damage;
+    public const float maxDamage = 100;
+    public static event DamageChange DamageChanged;
 
     public static int HighScore
     {
@@ -39,18 +47,20 @@ public static class GameManager
             {
                 _highScore = value;
                 PlayerPrefs.SetInt("HighScore", _highScore.Value);
-                Debug.Log("New High Score: " + _highScore.Value);
+                if (HighScoreChanged != null)
+                    HighScoreChanged(_highScore.Value);
             }
         }
     }
     static int? _highScore;
+    public static event ScoreChange HighScoreChanged;
 
     public static int Lives
     {
         get
         {
             if (_lives == null)
-                _lives = 3;
+                _lives = startingLives;
             return _lives.Value;
         }
         set
@@ -58,10 +68,14 @@ public static class GameManager
             if (_lives != value)
             {
                 _lives = value;
+                if (LivesChanged != null)
+                    LivesChanged(_lives.Value);
             }
         }
     }
     static int? _lives;
+    public const int startingLives = 5;
+    public static event LivesChange LivesChanged;
 
     public static int Score
     {
@@ -71,11 +85,15 @@ public static class GameManager
             if (_score != value)
             {
                 _score = value;
-                Debug.Log("Score: " + _score);
+
+                if (ScoreChanged != null)
+                    ScoreChanged(_score);
+
                 if (_score > HighScore)
                     HighScore = _score;
             }
         }
     }
     static int _score;
+    public static event ScoreChange ScoreChanged;
 }
