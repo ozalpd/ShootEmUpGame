@@ -24,8 +24,6 @@ public class GameUI : MonoBehaviour
 
         GameManager_HighScoreChanged(GameManager.HighScore);
         GameManager.HighScoreChanged += GameManager_HighScoreChanged;
-
-        GameManager.Lives = 1;
     }
 
     void GameManager_DamageChanged(float damage, float maxDamage)

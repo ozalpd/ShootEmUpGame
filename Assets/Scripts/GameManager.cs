@@ -2,6 +2,7 @@
 
 public static class GameManager
 {
+    //Maybe ScoreManager is a better name for this class
     public delegate void DamageChange(float damage, float maxDamage);
     public delegate void ScoreChange(int score);
     public delegate void LivesChange(int lives);
@@ -15,7 +16,6 @@ public static class GameManager
             if (_damage != value)
             {
                 _damage = value;
-                Debug.Log(_damage);
             }
 
             if (maxDamage <= _damage)

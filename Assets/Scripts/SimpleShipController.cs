@@ -26,21 +26,20 @@ public class SimpleShipController : MonoBehaviour
     {
         set
         {
-            if (_firing != value)
+            if (_isFiring != value)
             {
-                _firing = value;
+                _isFiring = value;
                 float repeatRate = 1 / _weapon.firingRate;
-                Debug.Log("repeatRate: " + repeatRate);
 
-                if (_firing)
+                if (_isFiring)
                     _weapon.InvokeRepeating("fire", 0.001f, repeatRate);
                 else
                     _weapon.CancelInvoke("fire");
             }
         }
-        get { return _firing; }
+        get { return _isFiring; }
     }
-    bool _firing;
+    bool _isFiring;
 
     void Update()
     {

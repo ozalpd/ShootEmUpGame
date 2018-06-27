@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shootable : MonoBehaviour 
+public class Shootable : MonoBehaviour
 {
     public int score = 5;
 
@@ -12,7 +12,6 @@ public class Shootable : MonoBehaviour
             return;
 
         GameManager.Score += score;
-
 
         Destroy(gameObject);
     }

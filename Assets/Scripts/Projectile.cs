@@ -21,7 +21,6 @@ public class Projectile : MonoBehaviour
         _audioSource.Play();
     }
 
-
     private void FixedUpdate()
     {
         transform.Translate(0, speed * Time.fixedDeltaTime, 0, transform);

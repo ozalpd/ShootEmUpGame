@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour
     public float firingRange = 5;
 
     public Transform[] emmitters;
-    int _emmitterIdx = -1;
+    int _emmitterIndex = -1;
     Collider2D _shipCollider2D;
 
     void Awake()
@@ -24,17 +24,19 @@ public class Weapon : MonoBehaviour
     void fire()
     {
         if (emmitters != null && emmitters.Length > 0)
-            _emmitterIdx++;
+            _emmitterIndex++;
 
-        if (emmitters != null && !(_emmitterIdx < emmitters.Length))
-            _emmitterIdx = 0;
+        if (emmitters != null && !(_emmitterIndex < emmitters.Length))
+            _emmitterIndex = 0;
 
-        var pTransform = _emmitterIdx > -1 ? emmitters[_emmitterIdx] : transform;
+        var pTransform = _emmitterIndex > -1 ? emmitters[_emmitterIndex] : transform;
         var position = pTransform.TransformPoint(Vector3.up * firingOffset);
         var go = (GameObject)Instantiate(projectile, position, pTransform.rotation);
-        var proj = go.GetComponent<Projectile>();
-        if (proj != null)
-            proj.range = firingRange;
+
+        var projInstance = go.GetComponent<Projectile>();
+        if (projInstance != null)
+            projInstance.range = firingRange;
+
         var projectileCollider = go.GetComponent<Collider2D>();
         if (projectileCollider != null)
             Physics2D.IgnoreCollision(_shipCollider2D, projectileCollider);
