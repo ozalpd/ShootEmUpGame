@@ -10,6 +10,14 @@ public class GameUI : MonoBehaviour
     public Text txtLives;
 
     public Slider sliderDamage;
+    Image _imgDamageFillArea;
+    public Color colorDamageMin = Color.yellow;
+    public Color colorDamageMax = Color.red;
+
+    void Awake()
+    {
+        _imgDamageFillArea = sliderDamage.fillRect.GetComponent<Image>();    
+    }
 
     void Start()
     {
@@ -29,6 +37,7 @@ public class GameUI : MonoBehaviour
     void GameManager_DamageChanged(float damage, float maxDamage)
     {
         sliderDamage.value = damage / maxDamage;
+        _imgDamageFillArea.color = Color.Lerp(colorDamageMin, colorDamageMax, damage / maxDamage);
     }
 
     void GameManager_LivesChanged(int lives)

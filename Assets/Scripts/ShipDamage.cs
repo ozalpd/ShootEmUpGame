@@ -2,6 +2,9 @@
 
 public class ShipDamage : MonoBehaviour
 {
+    [Range(1, 100)]
+    public float vulnerability = 5;
+
     Collider2D _collider;
     Rigidbody2D _rigidbody;
 
@@ -34,6 +37,6 @@ public class ShipDamage : MonoBehaviour
             damage *= collision.rigidbody.mass / _rigidbody.mass;
         }
 
-        Damage += damage;
+        Damage += vulnerability * damage;
     }
 }
