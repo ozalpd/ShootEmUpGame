@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5d980a04cbd7446fb97b68a89ae70f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vulnerability: 5
 --- !u!114 &114307378313541560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -289,7 +290,7 @@ MonoBehaviour:
   projectile: {fileID: 1132473495303538, guid: 39b9a3bf73ac641f8bf6530c0f509fbf, type: 2}
   firingOffset: 0.7
   firingRate: 2
-  firingRange: 5
+  firingRange: 10
   emmitters:
   - {fileID: 4022847663266214}
   - {fileID: 4248636612708650}

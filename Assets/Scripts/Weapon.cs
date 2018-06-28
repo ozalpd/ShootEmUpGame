@@ -9,8 +9,8 @@ public class Weapon : MonoBehaviour
     public float firingOffset = 0.5f;
     [Range(0.01f, 10f)]
     public float firingRate = 1;
-    [Range(1f, 10f)]
-    public float firingRange = 5;
+    [Range(5f, 20f)]
+    public float firingRange = 10;
 
     public Transform[] emmitters;
     int _emmitterIndex = -1;
