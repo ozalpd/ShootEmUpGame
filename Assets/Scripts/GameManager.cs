@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class GameManager
 {
@@ -135,6 +136,23 @@ public static class GameManager
     }
     static GameState _state;
     public static GameStateChange GameStateChanged;
+
+    public static void RestartGame()
+    {
+        LivesChanged = null;
+        ScoreChanged = null;
+        DamageChanged = null;
+        HighScoreChanged = null;
+        GameStateChanged = null;
+
+        Lives = startingLives;
+        Score = 0;
+        Damage = 0;
+
+        SceneManager.LoadScene(0);
+
+        GameState = GameState.Running;
+    }
 }
 
 public enum GameState

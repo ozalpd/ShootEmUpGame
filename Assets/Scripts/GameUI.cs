@@ -22,6 +22,23 @@ public class GameUI : MonoBehaviour
 
     public Text textGameState;
 
+    [Header("Settings")]
+    public Slider sliderVolumeMusic;
+    public Slider sliderVolumeSFX;
+
+
+    public float MusicVolume
+    {
+        get { return PlayerSettings.MusicVolume; }
+        set { PlayerSettings.MusicVolume = value; }
+    }
+
+    public float SfxVolume
+    {
+        get { return PlayerSettings.SfxVolume; }
+        set { PlayerSettings.SfxVolume = value; }
+    }
+
     void Awake()
     {
         _imgDamageFillArea = sliderDamage.fillRect.GetComponent<Image>();
@@ -43,7 +60,20 @@ public class GameUI : MonoBehaviour
 
         updateUI(GameManager.GameState);
         GameManager.GameStateChanged += updateUI;
+
+        sliderVolumeMusic.value = MusicVolume;
+        sliderVolumeSFX.value = SfxVolume;
     }
+
+    //Its better way to unsubscribe events inside from the GameManager
+    //void OnDestroy()
+    //{
+    //    GameManager.DamageChanged -= GameManager_DamageChanged;
+    //    GameManager.LivesChanged -= GameManager_LivesChanged;
+    //    GameManager.ScoreChanged -= GameManager_ScoreChanged;
+    //    GameManager.HighScoreChanged -= GameManager_HighScoreChanged;
+    //    GameManager.GameStateChanged -= updateUI;
+    //}
 
     void GameManager_DamageChanged(float damage, float maxDamage)
     {
@@ -73,8 +103,7 @@ public class GameUI : MonoBehaviour
 
     public void RestartGame()
     {
-        //TODO: Add restart values
-        GameManager.GameState = GameState.Running;
+        GameManager.RestartGame();
     }
 
     public void ResumeGame()
