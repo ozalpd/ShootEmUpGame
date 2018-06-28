@@ -2,11 +2,11 @@
 
 public static class GameManager
 {
-    //Maybe ScoreManager is a better name for this class
+
     public delegate void DamageChange(float damage, float maxDamage);
     public delegate void ScoreChange(int score);
     public delegate void LivesChange(int lives);
-
+    public delegate void GameStateChange(GameState gameState);
 
     public static float Damage
     {
@@ -68,8 +68,12 @@ public static class GameManager
             if (_lives != value)
             {
                 _lives = value;
+
                 if (LivesChanged != null)
                     LivesChanged(_lives.Value);
+                
+                if (_lives <= 0)
+                    GameState = GameState.Over;
             }
         }
     }
@@ -96,4 +100,46 @@ public static class GameManager
     }
     static int _score;
     public static event ScoreChange ScoreChanged;
+
+
+    public static GameState GameState
+    {
+        get { return _state; }
+        set
+        {
+            if (_state != value)
+            {
+                _state = value;
+                if (GameStateChanged != null)
+                    GameStateChanged(_state);
+
+                switch (_state)
+                {
+                    case GameState.Over:
+                        Time.timeScale = 0;
+                        break;
+
+                    case GameState.Paused:
+                        Time.timeScale = 0;
+                        break;
+
+                    case GameState.Running:
+                        Time.timeScale = 1;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+    static GameState _state;
+    public static GameStateChange GameStateChanged;
+}
+
+public enum GameState
+{
+    Running = 0,
+    Paused = 1,
+    Over = 2
 }

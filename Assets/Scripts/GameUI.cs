@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
+    [Header("HUD")]
     public Text txtScore;
     public Text txtHighScore;
     public Text txtLives;
@@ -14,9 +15,16 @@ public class GameUI : MonoBehaviour
     public Color colorDamageMin = Color.yellow;
     public Color colorDamageMax = Color.red;
 
+    [Header("Menu Items")]
+    public Button pauseButton;
+    public Button resumeButton;
+    public Image pauseMenu;
+
+    public Text textGameState;
+
     void Awake()
     {
-        _imgDamageFillArea = sliderDamage.fillRect.GetComponent<Image>();    
+        _imgDamageFillArea = sliderDamage.fillRect.GetComponent<Image>();
     }
 
     void Start()
@@ -32,6 +40,9 @@ public class GameUI : MonoBehaviour
 
         GameManager_HighScoreChanged(GameManager.HighScore);
         GameManager.HighScoreChanged += GameManager_HighScoreChanged;
+
+        updateUI(GameManager.GameState);
+        GameManager.GameStateChanged += updateUI;
     }
 
     void GameManager_DamageChanged(float damage, float maxDamage)
@@ -54,4 +65,45 @@ public class GameUI : MonoBehaviour
     {
         txtHighScore.text = string.Format("HIGH SCORE: {0}", GameManager.HighScore);
     }
+
+    public void PauseGame()
+    {
+        GameManager.GameState = GameState.Paused;
+    }
+
+    public void RestartGame()
+    {
+        //TODO: Add restart values
+        GameManager.GameState = GameState.Running;
+    }
+
+    public void ResumeGame()
+    {
+        GameManager.GameState = GameState.Running;
+    }
+
+    void updateUI(GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameState.Over:
+                textGameState.text = "GAME OVER";
+                break;
+
+            case GameState.Paused:
+                textGameState.text = "GAME PAUSED";
+                break;
+
+            case GameState.Running:
+                break;
+
+            default:
+                break;
+        }
+
+        pauseButton.gameObject.SetActive(gameState == GameState.Running);
+        resumeButton.gameObject.SetActive(gameState == GameState.Paused);
+        pauseMenu.gameObject.SetActive(gameState != GameState.Running);
+    }
+
 }
