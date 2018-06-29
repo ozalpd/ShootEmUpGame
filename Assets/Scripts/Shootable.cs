@@ -12,7 +12,6 @@ public class Shootable : MonoBehaviour
             return;
 
         GameManager.Score += score;
-
-        Destroy(gameObject);
+        ObjectPool.Release(gameObject);
     }
 }

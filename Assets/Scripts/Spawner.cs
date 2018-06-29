@@ -95,8 +95,7 @@ public class Spawner : MonoBehaviour
             }
 
             int i = Mathf.FloorToInt(Random.value * reference.Length);
-            var go = (GameObject)Instantiate(reference[i], randPos, new Quaternion(0, 0, 0, 0));
-            //TODO: use object pooling above.
+            var go = ObjectPool.GetInstance(reference[i], randPos, new Quaternion(0, 0, 0, 0), 100);
 
             var rb2d = go.GetComponent<Rigidbody2D>();
             if (rb2d != null)
@@ -119,6 +118,6 @@ public class Spawner : MonoBehaviour
             _animator.SetBool(_animatorSpawningId, false);
         }
 
-        gameObject.SetActive(false); //keep memory clean and don't tell anybody asteroids still remains in memory ;-)
+        gameObject.SetActive(false);
     }
 }

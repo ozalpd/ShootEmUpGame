@@ -16,9 +16,10 @@ public class Projectile : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         _audioSource.Play();
+        _distance = 0;
     }
 
     private void FixedUpdate()
@@ -27,6 +28,6 @@ public class Projectile : MonoBehaviour
         _distance += speed * Time.fixedDeltaTime;
 
         if (_distance > range)
-            Destroy(gameObject);//TODO: use object pooling
+            ObjectPool.Release(gameObject);
     }
 }

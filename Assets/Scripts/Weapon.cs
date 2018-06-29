@@ -31,7 +31,7 @@ public class Weapon : MonoBehaviour
 
         var pTransform = _emmitterIndex > -1 ? emmitters[_emmitterIndex] : transform;
         var position = pTransform.TransformPoint(Vector3.up * firingOffset);
-        var go = (GameObject)Instantiate(projectile, position, pTransform.rotation);
+        var go = ObjectPool.GetInstance(projectile, position, pTransform.rotation);
 
         var projInstance = go.GetComponent<Projectile>();
         if (projInstance != null)
