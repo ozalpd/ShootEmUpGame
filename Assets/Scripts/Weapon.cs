@@ -15,10 +15,13 @@ public class Weapon : MonoBehaviour
     public Transform[] emmitters;
     int _emmitterIndex = -1;
     Collider2D _shipCollider2D;
+    int _projectileId;
 
     void Awake()
     {
         _shipCollider2D = transform.parent.GetComponent<Collider2D>();
+        _projectileId = projectile.GetInstanceID();
+        ObjectPool.GetOrInitPool(projectile);
     }
 
     void fire()
@@ -31,7 +34,7 @@ public class Weapon : MonoBehaviour
 
         var pTransform = _emmitterIndex > -1 ? emmitters[_emmitterIndex] : transform;
         var position = pTransform.TransformPoint(Vector3.up * firingOffset);
-        var go = ObjectPool.GetInstance(projectile, position, pTransform.rotation);
+        var go = ObjectPool.GetInstance(_projectileId, position, pTransform.rotation);
 
         var projInstance = go.GetComponent<Projectile>();
         if (projInstance != null)

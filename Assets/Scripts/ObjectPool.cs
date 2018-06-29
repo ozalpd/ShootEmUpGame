@@ -48,12 +48,10 @@ public class ObjectPool : MonoBehaviour
         return go;
     }
 
-    public static GameObject GetInstance(GameObject original, Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion), int poolSize = 200)
+    public static ObjectPool GetOrInitPool(GameObject original, int poolSize = 200)
     {
-        //return Instantiate(original, position, rotation);
         int id = original.GetInstanceID();
         ObjectPool pool = _pools.ContainsKey(id) ? _pools[id] : null;
-
         if (pool == null)
         {
             var poolGO = new GameObject("ObjectPool: " + original.name);
@@ -63,12 +61,22 @@ public class ObjectPool : MonoBehaviour
             pool.Init();
         }
 
+        return pool;
+    }
+
+    public static GameObject GetInstance(int originalId, Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion))
+    {
+        return _pools[originalId].GetOnePoolInstance(position, rotation);
+    }
+
+    public static GameObject GetInstance(GameObject original, Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion), int poolSize = 200)
+    {
+        ObjectPool pool = GetOrInitPool(original);
         return pool.GetOnePoolInstance(position, rotation);
     }
 
     public static void Release(GameObject obj)
     {
-        //Destroy(obj);
         obj.SetActive(false);
     }
 }

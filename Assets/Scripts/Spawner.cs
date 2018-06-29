@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
 {
     [Header("Spawn")]
     public GameObject[] reference;
+    int[] _referenceId;
     public SpawnPosition spawnPosition;
 
     [Header("Spawning")]
@@ -55,7 +56,15 @@ public class Spawner : MonoBehaviour
         _animator = GetComponent<Animator>();
         if (_animator != null)
             _animatorSpawningId = Animator.StringToHash("Spawning");
+
+        _referenceId = new int[reference.Length];
+        for (int i = 0; i < reference.Length; i++)
+        {
+            _referenceId[i] = reference[i].GetInstanceID();
+            ObjectPool.GetOrInitPool(reference[i]);
+        }
     }
+
 
 
     //Start can be used as a coroutine
@@ -95,7 +104,7 @@ public class Spawner : MonoBehaviour
             }
 
             int i = Mathf.FloorToInt(Random.value * reference.Length);
-            var go = ObjectPool.GetInstance(reference[i], randPos, new Quaternion(0, 0, 0, 0), 100);
+            var go = ObjectPool.GetInstance(_referenceId[i], randPos, new Quaternion(0, 0, 0, 0));
 
             var rb2d = go.GetComponent<Rigidbody2D>();
             if (rb2d != null)
