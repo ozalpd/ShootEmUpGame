@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Makes objects shootable by game objects those tagged as Projectile.
+/// Makes the game object to be shootable by other game objects those are tagged as Projectile.
 /// </summary>
 public class Shootable : MonoBehaviour
 {

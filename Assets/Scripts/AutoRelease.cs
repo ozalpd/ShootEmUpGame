@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Auto release game object after duration. If duration is zero tries to detect lenght of audio or animation clip on awake.
+/// Releases (disables) enabled game object after a duration. If duration is zero tries to detect lenght of audio or animation clip on awake.
 /// </summary>
 public class AutoRelease : MonoBehaviour
 {

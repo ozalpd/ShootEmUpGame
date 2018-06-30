@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 /// <summary>
-/// Plays AudioSource on enable.
+/// Plays  AudioSource of the game object when enabled.
 /// </summary>
 public class PlayAudioOnEnable : MonoBehaviour
 {

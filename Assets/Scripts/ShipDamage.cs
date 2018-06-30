@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Keeps damage of player object.
+/// Keeps damage of the player and shows an impact animation.
 /// </summary>
 public class ShipDamage : MonoBehaviour
 {
