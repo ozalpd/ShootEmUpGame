@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Keeps damage of player object.
+/// </summary>
 public class ShipDamage : MonoBehaviour
 {
     [Range(1, 100)]
     public float vulnerability = 5;
+
+    public GameObject impact;
+    int _impactId;
 
     Collider2D _collider;
     Rigidbody2D _rigidbody;
@@ -12,6 +18,9 @@ public class ShipDamage : MonoBehaviour
     {
         _collider = GetComponent<Collider2D>();
         _rigidbody = GetComponent<Rigidbody2D>();
+
+        _impactId = impact.GetInstanceID();
+        ObjectPool.GetOrInitPool(impact, 50);//default value 200 is too much for this
     }
 
     public float Damage
@@ -35,6 +44,11 @@ public class ShipDamage : MonoBehaviour
         if (collision.rigidbody != null)
         {
             damage *= collision.rigidbody.mass / _rigidbody.mass;
+        }
+
+        if (damage > 0.01f)
+        {
+            ObjectPool.GetInstance(_impactId, collision.contacts[0].point);
         }
 
         Damage += vulnerability * damage;

@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vulnerability: 5
+  impact: {fileID: 1797404808263454, guid: aadef7de15499407da1c155481eeaa58, type: 2}
 --- !u!114 &114307378313541560
 MonoBehaviour:
   m_ObjectHideFlags: 1

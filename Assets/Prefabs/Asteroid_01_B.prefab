@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 5
+  explosion: {fileID: 1524716543046488, guid: 36da9047b103742b2be5acf877e79af9, type: 2}
 --- !u!212 &212538122496099034
 SpriteRenderer:
   m_ObjectHideFlags: 1
