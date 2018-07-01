@@ -12,6 +12,25 @@ public class AbstractVehicleController : AbstractPlayerController
 
     public float rearThrustLimit = 0.2f;
 
+    protected Animator _animator;
+    protected int _steeringHashId;
+    protected int _thrustXHashId;
+    protected int _thrustYHashId;
+
+    protected virtual void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        if (_animator != null)
+        {
+            _thrustXHashId = Animator.StringToHash("ThrustX");
+            _thrustYHashId = Animator.StringToHash("ThrustY");
+            _steeringHashId = Animator.StringToHash("Steering");
+            //Debug.Log("Steering ID:" + _steeringHashId);
+            //Debug.Log("ThrustX ID:" + _thrustXHashId);
+            //Debug.Log("ThrustY ID:" + _thrustYHashId);
+        }
+    }
+
     public Vector2 Thrust
     {
         get { return _thrust; }
@@ -20,6 +39,12 @@ public class AbstractVehicleController : AbstractPlayerController
             if (value != _thrust)
             {
                 _thrust = value;
+
+                if (_animator != null)
+                {
+                    _animator.SetFloat(_thrustXHashId, _thrust.x);
+                    _animator.SetFloat(_thrustYHashId, _thrust.y);
+                }
             }
         }
     }
@@ -33,6 +58,11 @@ public class AbstractVehicleController : AbstractPlayerController
             if (!Mathf.Approximately(value, _steering))
             {
                 _steering = value;
+
+                if (_animator != null)
+                {
+                    _animator.SetFloat(_steeringHashId, _steering);
+                }
             }
         }
     }
