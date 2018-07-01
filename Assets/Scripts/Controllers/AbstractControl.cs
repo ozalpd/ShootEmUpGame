@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Abstract control class for input control, touch control, etc.
+/// </summary>
 public abstract class AbstractControl : MonoBehaviour
 {
-    protected IControllable controllable;
-    public AbstractShipControllable shipControllable;
+    public IControllable controllable;
+    public AbstractPlayerController playerController;
 
     private void Awake()
     {
-        controllable = shipControllable;
+        controllable = playerController;
     }
 }
