@@ -7,13 +7,13 @@ public class TouchControl : AbstractControl
     bool _released;
     Vector2 lastTouchDelta = Vector2.zero;
 
-    #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
+#if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
     protected override void Awake()
     {
         base.Awake();
         enabled = true;
     }
-    #endif
+#endif
 
     void Update()
     {
@@ -40,7 +40,7 @@ public class TouchControl : AbstractControl
                     break;
             }
 
-            //Firing = (Input.touchCount > 1);
+            controllable.Firing = (Input.touchCount > 1);
         }
 
         if (_released && lastTouchDelta.magnitude > 0)

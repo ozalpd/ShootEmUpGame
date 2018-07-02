@@ -16,20 +16,43 @@ public class AbstractVehicleController : AbstractPlayerController
     protected int _steeringHashId;
     protected int _thrustXHashId;
     protected int _thrustYHashId;
+    protected Weapon _weapon;
 
     protected virtual void Awake()
     {
+        _weapon = GetComponentInChildren<Weapon>();
         _animator = GetComponent<Animator>();
         if (_animator != null)
         {
             _thrustXHashId = Animator.StringToHash("ThrustX");
             _thrustYHashId = Animator.StringToHash("ThrustY");
             _steeringHashId = Animator.StringToHash("Steering");
-            //Debug.Log("Steering ID:" + _steeringHashId);
-            //Debug.Log("ThrustX ID:" + _thrustXHashId);
-            //Debug.Log("ThrustY ID:" + _thrustYHashId);
+        }
+
+        if (_weapon == null)
+        {
+            Debug.LogWarning("A Weapon instance could not be found!");
         }
     }
+
+    public override bool Firing
+    {
+        set
+        {
+            if (_isFiring != value)
+            {
+                _isFiring = value;
+                float repeatRate = 1 / _weapon.firingRate;
+
+                if (_isFiring)
+                    _weapon.InvokeRepeating("fire", 0.001f, repeatRate);
+                else
+                    _weapon.CancelInvoke("fire");
+            }
+        }
+        get { return _isFiring; }
+    }
+    bool _isFiring;
 
     public Vector2 Thrust
     {

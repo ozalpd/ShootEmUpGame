@@ -6,12 +6,12 @@ public class InputControl : AbstractControl
 {
     Vector2 _movement;
 
-    #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
+#if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
     protected override void Awake()
     {
         Destroy(this);
     }
-    #endif
+#endif
 
     void Update()
     {
@@ -19,5 +19,6 @@ public class InputControl : AbstractControl
         _movement.y = Input.GetAxis("Vertical");
 
         controllable.Move(_movement);
+        controllable.Firing = Input.GetButton("Fire2");
     }
 }
