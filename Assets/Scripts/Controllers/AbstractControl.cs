@@ -8,7 +8,7 @@ public abstract class AbstractControl : MonoBehaviour
     public IControllable controllable;
     public AbstractPlayerController playerController;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         controllable = playerController;
     }

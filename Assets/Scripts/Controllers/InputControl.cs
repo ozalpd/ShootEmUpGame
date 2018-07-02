@@ -6,6 +6,12 @@ public class InputControl : AbstractControl
 {
     Vector2 _movement;
 
+    #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
+    protected override void Awake()
+    {
+        Destroy(this);
+    }
+    #endif
 
     void Update()
     {
