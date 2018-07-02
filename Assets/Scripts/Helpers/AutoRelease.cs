@@ -30,7 +30,7 @@ public class AutoRelease : MonoBehaviour
 
     void OnEnable()
     {
-        StartCoroutine(Release());   
+        StartCoroutine(Release());
     }
 
     IEnumerator Release()

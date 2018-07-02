@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputControl : AbstractControl
+public class InputControl : AbstractUserControl
 {
     Vector2 _movement;
 

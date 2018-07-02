@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TouchControl : AbstractControl
+public class TouchControl : AbstractUserControl
 {
     bool _released;
     Vector2 lastTouchDelta = Vector2.zero;

@@ -3,12 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Keeps a number of instantiated game objects ready to use in memory and recyles them to keep memory unfragmanted.
+/// </summary>
 public class ObjectPool : MonoBehaviour
 {
-
+    /// <summary>
+    /// The pool of objects
+    /// </summary>
     List<GameObject> _objectList;
+
+    /// <summary>
+    /// The original GameObject
+    /// </summary>
     GameObject _originalGO;
+
+    /// <summary>
+    /// Number of the instantiated game objects
+    /// </summary>
     int _poolSize;
+
+    /// <summary>
+    /// Keeps the object pool instances
+    /// </summary>
     static Dictionary<int, ObjectPool> _pools = new Dictionary<int, ObjectPool>();
 
     void Init()
@@ -48,6 +65,12 @@ public class ObjectPool : MonoBehaviour
         return go;
     }
 
+    /// <summary>
+    /// Finds an ObjectPool instance from a static dictionary. If no instance found initiliazes a new instance.
+    /// </summary>
+    /// <param name="original">The original GameObject that is needed to be in ObjectPool instance</param>
+    /// <param name="poolSize">Number of the instantiated game objects in the new instance. If there is already an instance of ObjectPool this param has no effect.</param>
+    /// <returns>ObjectPool that initiliazed or found in Dictionary</returns>
     public static ObjectPool GetOrInitPool(GameObject original, int poolSize = 200)
     {
         int id = original.GetInstanceID();
@@ -64,11 +87,26 @@ public class ObjectPool : MonoBehaviour
         return pool;
     }
 
+    /// <summary>
+    /// Intended to be used like Object.Instantiate method.
+    /// </summary>
+    /// <param name="originalId">Hash ID of an existing object that you want to activate a copy of it</param>
+    /// <param name="position">Position for the activated object.</param>
+    /// <param name="rotation">Orientation for the activated object.</param>
+    /// <returns></returns>
     public static GameObject GetInstance(int originalId, Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion))
     {
         return _pools[originalId].GetOnePoolInstance(position, rotation);
     }
 
+    /// <summary>
+    /// Intended to be used like Object.Instantiate method.
+    /// </summary>
+    /// <param name="original">An existing object that you want to activate a copy of it.</param>
+    /// <param name="position">Position for the activated object.</param>
+    /// <param name="rotation">Orientation for the activated object.</param>
+    /// <param name="poolSize">If an ObjectPool instance is not found, this will be poolSize of the new instance</param>
+    /// <returns></returns>
     public static GameObject GetInstance(GameObject original, Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion), int poolSize = 200)
     {
         ObjectPool pool = GetOrInitPool(original);
