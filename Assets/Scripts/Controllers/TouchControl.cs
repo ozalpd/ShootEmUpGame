@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class TouchControl : AbstractUserControl
 {
+    [Range(1, 200)]
+    public int touchSensitivity = 50;
+
     bool _released;
+    Vector2 _touchBeginning;
     Vector2 lastTouchDelta = Vector2.zero;
 
 #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
@@ -24,10 +28,11 @@ public class TouchControl : AbstractUserControl
             {
                 case TouchPhase.Began:
                     _released = false;
+                    _touchBeginning = touchZero.position;
                     break;
 
                 case TouchPhase.Moved:
-                    lastTouchDelta = touchZero.deltaPosition;
+                    lastTouchDelta = (touchZero.position - _touchBeginning) * (1f / (float)touchSensitivity);
                     controllable.Move(lastTouchDelta);
                     break;
 
@@ -40,8 +45,13 @@ public class TouchControl : AbstractUserControl
                     break;
             }
 
-            controllable.Firing = (Input.touchCount > 1);
+            Debug.DrawLine(Camera.main.ScreenToWorldPoint(_touchBeginning), Camera.main.ScreenToWorldPoint(touchZero.position));
+            //Debug.Log("_touchBeginning: " + _touchBeginning);
+            //Debug.Log("touchZero.position: " + touchZero.position);
+            //Debug.Log("lastTouchDelta: " + lastTouchDelta);
         }
+
+        controllable.Firing = (Input.touchCount > 1);
 
         if (_released && lastTouchDelta.magnitude > 0)
         {
