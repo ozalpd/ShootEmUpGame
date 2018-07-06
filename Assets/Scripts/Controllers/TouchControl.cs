@@ -52,6 +52,7 @@ public class TouchControl : AbstractUserControl
         }
 
         controllable.Firing = (Input.touchCount > 1);
+        controllable.Shielding = (Input.touchCount > 2);
 
         if (_released && lastTouchDelta.magnitude > 0)
         {

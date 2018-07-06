@@ -20,5 +20,6 @@ public class InputControl : AbstractUserControl
 
         controllable.Move(_movement);
         controllable.Firing = Input.GetButton("Fire2");
+        controllable.Shielding = Input.GetButton("Fire3");
     }
 }

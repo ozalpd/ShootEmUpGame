@@ -13,6 +13,7 @@ public class AbstractVehicleController : AbstractPlayerController
     public float rearThrustLimit = 0.2f;
 
     protected Animator _animator;
+    protected int _shieldHashId;
     protected int _steeringHashId;
     protected int _thrustXHashId;
     protected int _thrustYHashId;
@@ -27,6 +28,8 @@ public class AbstractVehicleController : AbstractPlayerController
             _thrustXHashId = Animator.StringToHash("ThrustX");
             _thrustYHashId = Animator.StringToHash("ThrustY");
             _steeringHashId = Animator.StringToHash("Steering");
+
+            _shieldHashId = _animator.GetLayerIndex("Shield"); //If no layer Shield, throws an error
         }
 
         if (_weapon == null)
@@ -41,7 +44,7 @@ public class AbstractVehicleController : AbstractPlayerController
         {
             if (_isFiring != value)
             {
-                _isFiring = value;
+                _isFiring = value && !Shielding;
                 float repeatRate = 1 / _weapon.firingRate;
 
                 if (_isFiring)
@@ -53,6 +56,23 @@ public class AbstractVehicleController : AbstractPlayerController
         get { return _isFiring; }
     }
     bool _isFiring;
+
+    public override bool Shielding
+    {
+        set
+        {
+            if (_isProtecting != value)
+            {
+                _isProtecting = value;
+                _animator.SetLayerWeight(_shieldHashId, _isProtecting ? 1f : 0f);
+            }
+
+            if (_isProtecting)
+                Firing = false;
+        }
+        get { return _isProtecting; }
+    }
+    bool _isProtecting;
 
     public Vector2 Thrust
     {
