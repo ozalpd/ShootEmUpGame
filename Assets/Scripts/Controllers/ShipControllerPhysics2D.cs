@@ -26,4 +26,12 @@ public class ShipControllerPhysics2D : AbstractVehicleController
         correctedThrust.Scale(thrustMultiplier);
         _rigidbody.AddRelativeForce(correctedThrust, ForceMode2D.Force);
     }
+
+    public override void ResetPlayer()
+    {
+        base.ResetPlayer();
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = 0;
+    }
+
 }

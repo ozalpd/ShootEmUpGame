@@ -6,4 +6,5 @@ public abstract class AbstractPlayerController : MonoBehaviour, IControllable
     public abstract bool Shielding { get; set; }
     public abstract void Move(Vector2 movement);
     public abstract void SwitchWeapon(Weapon weapon);
+    public abstract void ResetPlayer();
 }

@@ -121,6 +121,19 @@ public class AbstractVehicleController : AbstractPlayerController
     }
     Weapon _weapon;
 
+    public override void ResetPlayer()
+    {
+        Steering = 0;
+        Thrust = Vector2.zero;
+        Firing = Shielding = false;
+
+        transform.rotation = Quaternion.identity;
+        transform.position = Vector3.zero;
+
+        Weapon = _weapons.ElementAt(0);
+        gameObject.SendMessage("Repair");
+    }
+
     public override void SwitchWeapon(Weapon weapon)
     {
         if (Weapon.name.Equals(weapon.name))
