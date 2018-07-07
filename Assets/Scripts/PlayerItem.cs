@@ -6,7 +6,8 @@ public class PlayerItem : MonoBehaviour
     public enum ItemType
     {
         RepairKit = 1,
-        ExtraLife = 2
+        ExtraLife = 2,
+        Weapon = 3
     }
 
     public ItemType itemType;
@@ -14,6 +15,8 @@ public class PlayerItem : MonoBehaviour
     AudioSource _audioSrc;
     Collider2D _collider;
     Renderer _renderer;
+
+    public Weapon weapon;
 
     private void Awake()
     {
@@ -36,6 +39,17 @@ public class PlayerItem : MonoBehaviour
                 GameManager.Damage = 0;
                 break;
 
+            case ItemType.Weapon:
+                if (weapon != null)
+                {
+                    var player = collision.GetComponent<AbstractPlayerController>();
+                    if (player != null)
+                    {
+                        player.SwitchWeapon(weapon);
+                    }
+                }
+                break;
+
             default:
                 break;
         }
@@ -47,8 +61,11 @@ public class PlayerItem : MonoBehaviour
     {
         _collider.enabled = false;
         _renderer.enabled = false;
-        _audioSrc.Play();
-        yield return new WaitForSeconds(_audioSrc.clip.length + 0.05f);
+        if (_audioSrc != null)
+        {
+            _audioSrc.Play();
+            yield return new WaitForSeconds(_audioSrc.clip.length + 0.025f);
+        }
 
         Destroy(gameObject);
     }

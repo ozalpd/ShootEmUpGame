@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,11 +18,11 @@ public class AbstractVehicleController : AbstractPlayerController
     protected int _steeringHashId;
     protected int _thrustXHashId;
     protected int _thrustYHashId;
-    protected Weapon _weapon;
+
+    protected List<Weapon> _weapons;
 
     protected virtual void Awake()
     {
-        _weapon = GetComponentInChildren<Weapon>();
         _animator = GetComponent<Animator>();
         if (_animator != null)
         {
@@ -32,7 +33,8 @@ public class AbstractVehicleController : AbstractPlayerController
             _shieldHashId = _animator.GetLayerIndex("Shield"); //If no layer Shield, throws an error
         }
 
-        if (_weapon == null)
+        _weapons = new List<Weapon>();
+        if (Weapon == null)
         {
             Debug.LogWarning("A Weapon instance could not be found!");
         }
@@ -42,20 +44,10 @@ public class AbstractVehicleController : AbstractPlayerController
     {
         set
         {
-            if (_isFiring != value)
-            {
-                _isFiring = value && !Shielding;
-                float repeatRate = 1 / _weapon.firingRate;
-
-                if (_isFiring)
-                    _weapon.InvokeRepeating("fire", 0.001f, repeatRate);
-                else
-                    _weapon.CancelInvoke("fire");
-            }
+            Weapon.Firing = value && !Shielding;
         }
-        get { return _isFiring; }
+        get { return Weapon.Firing; }
     }
-    bool _isFiring;
 
     public override bool Shielding
     {
@@ -73,6 +65,24 @@ public class AbstractVehicleController : AbstractPlayerController
         get { return _isProtecting; }
     }
     bool _isProtecting;
+
+    public float Steering
+    {
+        set
+        {
+            if (!Mathf.Approximately(value, _steering))
+            {
+                _steering = value;
+
+                if (_animator != null)
+                {
+                    _animator.SetFloat(_steeringHashId, _steering);
+                }
+            }
+        }
+        get { return _steering; }
+    }
+    float _steering;
 
     public Vector2 Thrust
     {
@@ -93,23 +103,51 @@ public class AbstractVehicleController : AbstractPlayerController
     }
     Vector2 _thrust;
 
-    public float Steering
+    protected Weapon Weapon
     {
-        get { return _steering; }
+        get
+        {
+            if (_weapon == null)
+                _weapon = GetComponentInChildren<Weapon>();
+
+            return _weapon;
+        }
         set
         {
-            if (!Mathf.Approximately(value, _steering))
-            {
-                _steering = value;
-
-                if (_animator != null)
-                {
-                    _animator.SetFloat(_steeringHashId, _steering);
-                }
-            }
+            _weapon = value;
+            if (!_weapons.Contains(_weapon))
+                _weapons.Add(_weapon);
         }
     }
-    float _steering;
+    Weapon _weapon;
+
+    public override void SwitchWeapon(Weapon weapon)
+    {
+        if (Weapon.name.Equals(weapon.name))
+            return;
+
+        var inListWeapon = _weapons.FirstOrDefault(w => w.name.Equals(weapon.name));
+
+        bool isFiring = Firing;
+        Firing = false; //first, we need to stop current one
+        Weapon.gameObject.SetActive(false);
+
+        if (inListWeapon != null)
+        {
+            inListWeapon.gameObject.SetActive(true);
+            Weapon = inListWeapon;
+        }
+        else
+        {
+            var weaponGO = Instantiate(weapon.gameObject, transform);
+            weaponGO.transform.localRotation = Quaternion.identity;
+            weaponGO.transform.localPosition = Vector3.zero;
+
+            Weapon = weaponGO.GetComponent<Weapon>();
+        }
+
+        Weapon.Firing = isFiring;
+    }
 
     public override void Move(Vector2 movement)
     {
