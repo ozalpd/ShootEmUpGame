@@ -1,5 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum GameState
+{
+    Running = 0,
+    Paused = 1,
+    Over = 2
+}
 
 public static class GameManager
 {
@@ -14,7 +23,7 @@ public static class GameManager
         get { return _damage; }
         set
         {
-            if (_damage != value)
+            if (Mathf.Approximately(_damage, value))
             {
                 _damage = value;
             }
@@ -72,7 +81,7 @@ public static class GameManager
 
                 if (LivesChanged != null)
                     LivesChanged(_lives.Value);
-                
+
                 if (_lives <= 0)
                     GameState = GameState.Over;
             }
@@ -102,6 +111,49 @@ public static class GameManager
     static int _score;
     public static event ScoreChange ScoreChanged;
 
+    public static AbstractUserControl[] UserControls
+    {
+        get
+        {
+            if (_userControls == null || !(_userControls.Length > 0))
+            {
+                _userControls = Object.FindObjectsOfType<AbstractUserControl>();
+            }
+
+            return _userControls;
+        }
+    }
+    static AbstractUserControl[] _userControls;
+
+    public static bool UserControlsEnabled
+    {
+        get { return _userControlsEnabled; }
+        set
+        {
+            if (_userControlsEnabled != value)
+            {
+                _userControlsEnabled = value;
+                if (_userControlsEnabled && _disabledUserControls != null)
+                {
+                    foreach (var c in _disabledUserControls)
+                    {
+                        c.enabled = true;
+                    }
+                }
+                else if (!_userControlsEnabled)
+                {
+                    _disabledUserControls = UserControls.Where(uc => uc.enabled).ToList();
+                    foreach (var c in _disabledUserControls)
+                    {
+                        c.enabled = false;
+                    }
+                }
+            }
+        }
+    }
+    static bool _userControlsEnabled = true;
+    static List<AbstractUserControl> _disabledUserControls;
+
 
     public static GameState GameState
     {
@@ -118,13 +170,16 @@ public static class GameManager
                 {
                     case GameState.Over:
                         Time.timeScale = 0;
+                        UserControlsEnabled = false;
                         break;
 
                     case GameState.Paused:
                         Time.timeScale = 0;
+                        UserControlsEnabled = false;
                         break;
 
                     case GameState.Running:
+                        UserControlsEnabled = true;
                         Time.timeScale = 1;
                         break;
 
@@ -173,11 +228,4 @@ public static class GameManager
 
         GameState = GameState.Running;
     }
-}
-
-public enum GameState
-{
-    Running = 0,
-    Paused = 1,
-    Over = 2
 }
