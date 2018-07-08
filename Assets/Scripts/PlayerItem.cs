@@ -67,6 +67,7 @@ public class PlayerItem : MonoBehaviour
             yield return new WaitForSeconds(_audioSrc.clip.length + 0.025f);
         }
 
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

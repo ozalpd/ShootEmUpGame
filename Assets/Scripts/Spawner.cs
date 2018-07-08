@@ -14,6 +14,8 @@ public class Spawner : MonoBehaviour
     public GameObject[] reference;
     int[] _referenceId;
     public SpawnPosition spawnPosition;
+    [Tooltip("If this is unchecked spawns sequentally.")]
+    public bool spawnRandomly = true;
 
     [Header("Spawning")]
     [Range(0.001f, 100)]
@@ -66,6 +68,23 @@ public class Spawner : MonoBehaviour
     }
 
 
+    private int GetNextIndex()
+    {
+        if (!(reference.Length > 1)) //if reference is null or length is zero let the compiler throws a null reference exception
+        {
+            return 0;
+        }
+        else if (spawnRandomly)
+        {
+            return Random.Range(0, reference.Length - 1);
+        }
+        else
+        {
+            index = index.HasValue && index.Value < reference.Length - 1 ? index.Value + 1 : 0;
+            return index.Value;
+        }
+    }
+    int? index;
 
     //Start can be used as a coroutine
     IEnumerator Start()
@@ -86,6 +105,7 @@ public class Spawner : MonoBehaviour
             _animator.SetBool(_animatorSpawningId, true);
             yield return new WaitForSeconds(delayIn);
         }
+
         while (_remain > 0)
         {
             var randPos = gameArea != null
@@ -103,8 +123,7 @@ public class Spawner : MonoBehaviour
                 Debug.Break();
             }
 
-            int i = Mathf.FloorToInt(Random.value * reference.Length);
-            var go = ObjectPool.GetInstance(_referenceId[i], randPos, new Quaternion(0, 0, 0, 0));
+            var go = ObjectPool.GetInstance(_referenceId[GetNextIndex()], randPos, new Quaternion(0, 0, 0, 0));
 
             var rb2d = go.GetComponent<Rigidbody2D>();
             if (rb2d != null)
