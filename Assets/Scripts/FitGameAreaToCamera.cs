@@ -31,14 +31,8 @@ public class FitGameAreaToCamera : MonoBehaviour
     private void FitToCamera(Camera cam)
     {
         Area.Size = new Vector2(cam.aspect * cam.orthographicSize * 2, cam.orthographicSize * 2);
-
-        //Vector3 camPos = cam.transform.position;
-        //camPos.z = 0; //this a 2D project, so everything is at z=0 except the camera
-        //transform.position = camPos;
-
-        //below line is much better than above three
+        //Area.RectTransform.sizeDelta = new Vector2(cam.aspect * cam.orthographicSize * 2, cam.orthographicSize * 2);
         transform.position = (Vector2)cam.transform.position;
-
         transform.rotation = cam.transform.rotation;
     }
 

@@ -4,26 +4,31 @@
 /// Defines a rectengular game area.
 /// </summary>
 [AddComponentMenu("OzzGames/Game Area")]
+[RequireComponent(typeof(RectTransform))]
 public class GameArea : MonoBehaviour
 {
+    public Color gizmoColor = new Color(0, 0, 1, 0.2f);
+    Color gizmoWireColor;
+
     public GameArea()
     {
         if (_firstInstance == null)
             _firstInstance = this;
     }
 
-    public Vector2 size;
-    public Color gizmoColor = new Color(0, 0, 1, 0.2f);
-    Color gizmoWireColor;
-
-    public Rect Area
+    private void OnValidate()
     {
-        get { return _area; }
-        set { _area = value; }
+        gizmoWireColor = new Color(gizmoColor.r, gizmoColor.g, gizmoColor.b, 1);
     }
-    [SerializeField]
-    [HideInInspector]
-    Rect _area;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.color = gizmoColor;
+        Gizmos.DrawCube(Vector3.zero, new Vector3(Area.width, Area.height, 0));
+        Gizmos.color = gizmoWireColor;
+        Gizmos.DrawWireCube(Vector3.zero, new Vector3(Area.width, Area.height, 0));
+    }
 
     public static GameArea Main
     {
@@ -40,35 +45,35 @@ public class GameArea : MonoBehaviour
     }
     static GameArea _firstInstance;
 
+
+    public Rect Area
+    {
+        get { return RectTransform.rect; }
+        set
+        {
+            RectTransform.sizeDelta = new Vector2(value.x, value.y);
+        }
+    }
+
+    public RectTransform RectTransform
+    {
+        get
+        {
+            if (_rectTransform == null)
+                _rectTransform = GetComponent<RectTransform>();
+            return _rectTransform;
+        }
+        set { _rectTransform = value; }
+    }
+    private RectTransform _rectTransform;
+
     public Vector2 Size
     {
         get { return Area.size; }
         set
         {
-            size = value;
-            Area = new Rect(size.x * -0.5f, size.y * -0.5f, size.x, size.y);
+            RectTransform.sizeDelta = new Vector2(value.x, value.y);
         }
-    }
-
-    private void Awake()
-    {
-        Size = size;
-    }
-
-    private void OnValidate()
-    {
-        gizmoWireColor = new Color(gizmoColor.r, gizmoColor.g, gizmoColor.b, 1);
-        Size = size;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.matrix = transform.localToWorldMatrix;
-        Gizmos.color = gizmoColor;
-        Gizmos.DrawCube(Vector3.zero, new Vector3(Area.width, Area.height, 0));
-        Gizmos.color = gizmoWireColor;
-        Gizmos.DrawWireCube(Vector3.zero, new Vector3(Area.width, Area.height, 0));
-        Size = size;
     }
 
     /// <summary>
