@@ -28,6 +28,8 @@ public class GameArea : MonoBehaviour
         Gizmos.DrawWireCube(Area.center, new Vector3(Area.width, Area.height, 0));
     }
 
+    public Rect Area { get { return RectTransform.rect; } }
+
     public static GameArea Main
     {
         get
@@ -41,17 +43,10 @@ public class GameArea : MonoBehaviour
                 }
                 else if (areas.Length > 0)
                 {
-                    if (false)
-                    {
-                        //This is what the instructor told
-                        List<GameArea> listAreas = areas.ToList();
-                        listAreas.Sort((f1, f2) => f2.Area.size.magnitude.CompareTo(f1.Area.size.magnitude));
-                        _mainArea = listAreas[0];
-                    }
-                    else //This is what I like to use
-                        _mainArea = areas.OrderByDescending(a => a.Area.size.magnitude).First();
+                    _mainArea = areas.OrderByDescending(a => a.Area.size.magnitude).First();
                 }
             }
+
             if (_mainArea == null)
             {
                 GameObject go = new GameObject("GameArea Main");
@@ -68,15 +63,6 @@ public class GameArea : MonoBehaviour
     static GameArea _mainArea;
 
 
-    public Rect Area
-    {
-        get { return RectTransform.rect; }
-        set
-        {
-            RectTransform.sizeDelta = new Vector2(value.x, value.y);
-        }
-    }
-
     public RectTransform RectTransform
     {
         get
@@ -85,7 +71,6 @@ public class GameArea : MonoBehaviour
                 _rectTransform = GetComponent<RectTransform>();
             return _rectTransform;
         }
-        set { _rectTransform = value; }
     }
     private RectTransform _rectTransform;
 

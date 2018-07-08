@@ -23,7 +23,7 @@ public static class GameManager
         get { return _damage; }
         set
         {
-            if (Mathf.Approximately(_damage, value))
+            if (!Mathf.Approximately(_damage, value))
             {
                 _damage = value;
             }
@@ -32,7 +32,6 @@ public static class GameManager
             {
                 Lives--;
                 _damage = 0;
-                //TODO: do some noise
             }
 
             if (DamageChanged != null)
