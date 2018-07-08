@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Defines a rectengular game area.
@@ -10,12 +13,6 @@ public class GameArea : MonoBehaviour
     public Color gizmoColor = new Color(0, 0, 1, 0.2f);
     Color gizmoWireColor;
 
-    public GameArea()
-    {
-        if (_firstInstance == null)
-            _firstInstance = this;
-    }
-
     private void OnValidate()
     {
         gizmoWireColor = new Color(gizmoColor.r, gizmoColor.g, gizmoColor.b, 1);
@@ -25,25 +22,50 @@ public class GameArea : MonoBehaviour
     {
         Gizmos.matrix = transform.localToWorldMatrix;
         Gizmos.color = gizmoColor;
-        Gizmos.DrawCube(Vector3.zero, new Vector3(Area.width, Area.height, 0));
+        Gizmos.DrawCube(Area.center, new Vector3(Area.width, Area.height, 0));
+
         Gizmos.color = gizmoWireColor;
-        Gizmos.DrawWireCube(Vector3.zero, new Vector3(Area.width, Area.height, 0));
+        Gizmos.DrawWireCube(Area.center, new Vector3(Area.width, Area.height, 0));
     }
 
     public static GameArea Main
     {
         get
         {
-            if (_firstInstance == null)
+            if (_mainArea == null)
+            {
+                var areas = FindObjectsOfType<GameArea>();
+                if (areas.Length == 1)
+                {
+                    _mainArea = areas[0];
+                }
+                else if (areas.Length > 0)
+                {
+                    if (false)
+                    {
+                        //This is what the instructor told
+                        List<GameArea> listAreas = areas.ToList();
+                        listAreas.Sort((f1, f2) => f2.Area.size.magnitude.CompareTo(f1.Area.size.magnitude));
+                        _mainArea = listAreas[0];
+                    }
+                    else //This is what I like to use
+                        _mainArea = areas.OrderByDescending(a => a.Area.size.magnitude).First();
+                }
+            }
+            if (_mainArea == null)
             {
                 GameObject go = new GameObject("GameArea Main");
                 go.AddComponent<GameArea>(); //instantiating first one
-                go.AddComponent<FitGameAreaToCamera>();
+                //go.AddComponent<FitGameAreaToCamera>(); //We are replacing this with Unity Canvas system
+                Canvas canvas = go.AddComponent<Canvas>();
+                canvas.renderMode = RenderMode.ScreenSpaceCamera;
+                canvas.planeDistance = -Camera.main.transform.position.z;
+                canvas.worldCamera = Camera.main;
             }
-            return _firstInstance;
+            return _mainArea;
         }
     }
-    static GameArea _firstInstance;
+    static GameArea _mainArea;
 
 
     public Rect Area

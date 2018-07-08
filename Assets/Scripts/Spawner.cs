@@ -4,13 +4,16 @@ using UnityEngine;
 
 public enum SpawnPosition
 {
-    RandomInTheGameArea = 0,
-    TopOfTheGameArea = 1,
+    RandomInTheSpawnArea = 0,
+    TopOfTheSpawnArea = 1,
     TransformPosition = 3
 }
 public class Spawner : MonoBehaviour
 {
     [Header("Spawn")]
+    [Tooltip("If this is left empty Main area will be used")]
+    public GameArea spawnArea;
+    [Tooltip("Reference objects to be spawn")]
     public GameObject[] reference;
     int[] _referenceId;
     public SpawnPosition spawnPosition;
@@ -37,11 +40,9 @@ public class Spawner : MonoBehaviour
     [Range(10f, 100f)]
     public float maxSpeed = 15;
 
-
-    GameArea gameArea { get { return GameArea.Main; } }
-
-    [Range(0, 6)]// When set to zero, it's disabled that checking for
-    public float minDistToPlayer; // minimum distance to player's position 
+    [Tooltip("When set to zero, it's disabled that checking for minimum distance to player's position")]
+    [Range(0, 6)]
+    public float minDistToPlayer;
 
     [Header("Animator")]
     [Range(1f, 10f)]
@@ -65,6 +66,9 @@ public class Spawner : MonoBehaviour
             _referenceId[i] = reference[i].GetInstanceID();
             ObjectPool.GetOrInitPool(reference[i]);
         }
+
+        if (spawnArea == null)
+            spawnArea = GameArea.Main;
     }
 
 
@@ -108,9 +112,9 @@ public class Spawner : MonoBehaviour
 
         while (_remain > 0)
         {
-            var randPos = gameArea != null
-                && (spawnPosition == SpawnPosition.RandomInTheGameArea || spawnPosition == SpawnPosition.TopOfTheGameArea)
-                ? gameArea.GetRandomPosition(player, minDistToPlayer, spawnPosition == SpawnPosition.TopOfTheGameArea)
+            var randPos = spawnArea != null
+                && (spawnPosition == SpawnPosition.RandomInTheSpawnArea || spawnPosition == SpawnPosition.TopOfTheSpawnArea)
+                ? spawnArea.GetRandomPosition(player, minDistToPlayer, spawnPosition == SpawnPosition.TopOfTheSpawnArea)
                           : transform.position;
 
             //I'm keeping below statement as a visual debug sample
