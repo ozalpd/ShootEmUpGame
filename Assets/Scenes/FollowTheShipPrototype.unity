@@ -799,6 +799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d87d8a1949be41699be945bbb51a06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnArea: {fileID: 1857462194}
   reference:
   - {fileID: 1917284351649936, guid: 5cf8f1aaade2df44a9d359bcf92acb0e, type: 2}
   - {fileID: 1196538387293512, guid: af78a37b8bcd26641bbc7c1010384a7b, type: 2}
@@ -1933,10 +1934,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114016694084183472, guid: 1b69c8887024c42deaa64773a8c9411a,
-        type: 2}
-      propertyPath: vulnerability
-      value: 12
+    - target: {fileID: 4221652379718564, guid: 1b69c8887024c42deaa64773a8c9411a, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b69c8887024c42deaa64773a8c9411a, type: 2}
@@ -3754,6 +3754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d87d8a1949be41699be945bbb51a06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnArea: {fileID: 0}
   reference:
   - {fileID: 1869191564351164, guid: edcc77f831e004f2ca2197c6b0dcb0d0, type: 2}
   spawnPosition: 0
