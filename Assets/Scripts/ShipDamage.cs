@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Keeps damage of the player and shows an impact animation.
@@ -10,6 +12,12 @@ public class ShipDamage : MonoBehaviour
 
     public GameObject impact;
     int _impactId;
+    public GameObject explosion;
+    int _explosionId;
+    public Transform[] explosionLocations;
+    [Range(0.01f, 0.5f)]
+    public float explosionWaits = 0.2f;
+    float _explosionDuration;
 
     Collider2D _collider;
     Rigidbody2D _rigidbody;
@@ -21,6 +29,13 @@ public class ShipDamage : MonoBehaviour
 
         _impactId = impact.GetInstanceID();
         ObjectPool.GetOrInitPool(impact, 50);//default value 200 is too much for this
+
+        _explosionId = explosion.GetInstanceID();
+        ObjectPool.GetOrInitPool(explosion, explosionLocations.Length);
+        _explosionDuration = explosionWaits * (float)explosionLocations.Length;
+
+        prevLives = GameManager.Lives;
+        GameManager.LivesChanged += GameManager_LivesChanged;
     }
 
     public float Damage
@@ -28,6 +43,97 @@ public class ShipDamage : MonoBehaviour
         get { return GameManager.Damage; }
         set { GameManager.Damage = value; }
     }
+
+    //this class is not the right place for that event handler
+    void GameManager_LivesChanged(int lives)
+    {
+        if (prevLives > lives)
+            Die();
+        prevLives = lives;
+    }
+    int prevLives;
+
+    //this class is not the right place for that method
+    public void Die()
+    {
+        StartCoroutine(ReSpawn());
+    }
+
+    private IEnumerator RunExplosions()
+    {
+        GameObject prevGO = null;
+        Transform prevTr = null;
+        foreach (var t in explosionLocations)
+        {
+            var go = ObjectPool.GetInstance(_explosionId, t.position, t.rotation);
+            yield return new WaitForSeconds(explosionWaits);
+            go.transform.position = t.position;
+
+            if (prevGO != null)
+                prevGO.transform.position = prevTr.transform.position;
+            prevTr = t;
+            prevGO = go;
+        }
+    }
+
+    //this class is not the right place for that method
+    private IEnumerator ReSpawn()
+    {
+        //disable colliders
+        _colliders = GetComponentsInChildren<Collider2D>(false);
+        foreach (var c in _colliders)
+        {
+            c.enabled = false;
+        }
+
+        //disable user controls
+        GameManager.UserControlsEnabled = false;
+
+        //run explosions
+        //yield return 
+            StartCoroutine(RunExplosions());
+        yield return new WaitForSeconds(_explosionDuration * 0.75f);
+
+        //disable renderers
+        _renderers = GetComponentsInChildren<Renderer>(false);
+        foreach (var r in _renderers)
+        {
+            r.enabled = false;
+        }
+
+        GetComponent<AbstractPlayerController>().SetToDefaults();
+
+        yield return new WaitForSeconds(1);
+        //enable renderers
+        foreach (var r in _renderers)
+        {
+            r.enabled = true;
+        }
+
+        //enable user controls
+        GameManager.UserControlsEnabled = true;
+
+        //set animator Respawn  to true
+        _animator = GetComponent<Animator>();
+        if (_animator != null)
+            _animator.SetBool("Respawn", true);
+
+        //wait for 3 sec
+        yield return new WaitForSeconds(3);
+
+        //enable colliders
+        foreach (var c in _colliders)
+        {
+            c.enabled = true;
+        }
+
+        //set animator Respawn to false
+        if (_animator != null)
+            _animator.SetBool("Respawn", false);
+    }
+    Renderer[] _renderers;
+    Collider2D[] _colliders;
+    Animator _animator;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

@@ -44,6 +44,10 @@ public class AbstractVehicleController : AbstractPlayerController
         _weapons.Add(_defaultWeapon);
 
         _saveTransform = GetComponent<SaveTransform>();
+
+
+        //GameManager.Lives = 1;
+        GameManager.Damage = 90;
     }
 
     public override bool Firing
@@ -129,12 +133,22 @@ public class AbstractVehicleController : AbstractPlayerController
     }
     Weapon _weapon;
 
-    public override void ResetPlayer()
+    public override void SetToDefaults()
     {
         Steering = 0;
         Thrust = Vector2.zero;
         Firing = Shielding = false;
 
+        foreach (var w in _weapons)
+        {
+            w.gameObject.SetActive(false);
+        }
+        SwitchWeapon(_defaultWeapon);
+    }
+
+    public override void ResetPlayer()
+    {
+        base.ResetPlayer();
         if (_saveTransform != null && _saveTransform.IsSaved)
         {
             _saveTransform.RestoreTransform();
@@ -144,13 +158,6 @@ public class AbstractVehicleController : AbstractPlayerController
             transform.rotation = Quaternion.identity;
             transform.position = Vector3.zero;
         }
-
-        //Weapon = _weapons.ElementAt(0);
-        foreach (var w in _weapons)
-        {
-            w.gameObject.SetActive(false);
-        }
-        SwitchWeapon(_defaultWeapon);
     }
 
     public override void SwitchWeapon(Weapon weapon)
