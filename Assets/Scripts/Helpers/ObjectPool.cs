@@ -28,6 +28,42 @@ public class ObjectPool : MonoBehaviour
     /// </summary>
     static Dictionary<int, ObjectPool> _pools = new Dictionary<int, ObjectPool>();
 
+    /// <summary>
+    /// Clears all active game objects in this pool.
+    /// </summary>
+    public void Clear()
+    {
+        var actives = _objectList.Where(o => o.activeSelf);
+        foreach (var go in actives)
+        {
+            go.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// Clears all active game objects in the specified pool.
+    /// </summary>
+    /// <param name="originalId">InstanceID of the original GameObject.</param>
+    public static void ClearPool(int originalId)
+    {
+        if (_pools.ContainsKey(originalId) && _pools[originalId] != null)
+        {
+            _pools[originalId].Clear();
+        }
+    }
+
+    /// <summary>
+    /// Clears all active game objects in all pools.
+    /// </summary>
+    public static void ClearAllPools()
+    {
+        foreach (var p in _pools.Values)
+        {
+            if (p != null)
+                p.Clear();
+        }
+    }
+
     void Init()
     {
         _objectList = new List<GameObject>();
@@ -46,7 +82,7 @@ public class ObjectPool : MonoBehaviour
             _pools.Add(id, this);
     }
 
-    private GameObject GetOnePoolInstance(Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion))
+    private GameObject GetOneInstanceFromPool(Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion))
     {
         var go = _objectList.FirstOrDefault(o => !o.activeSelf);
         if (go == null)
@@ -96,7 +132,7 @@ public class ObjectPool : MonoBehaviour
     /// <returns></returns>
     public static GameObject GetInstance(int originalId, Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion))
     {
-        return _pools[originalId].GetOnePoolInstance(position, rotation);
+        return _pools[originalId].GetOneInstanceFromPool(position, rotation);
     }
 
     /// <summary>
@@ -110,9 +146,13 @@ public class ObjectPool : MonoBehaviour
     public static GameObject GetInstance(GameObject original, Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion), int poolSize = 200)
     {
         ObjectPool pool = GetOrInitPool(original);
-        return pool.GetOnePoolInstance(position, rotation);
+        return pool.GetOneInstanceFromPool(position, rotation);
     }
 
+    /// <summary>
+    /// Releases the specified obj.
+    /// </summary>
+    /// <param name="obj">GameObject to be released</param>
     public static void Release(GameObject obj)
     {
         obj.SetActive(false);

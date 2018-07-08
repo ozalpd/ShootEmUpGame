@@ -11,7 +11,7 @@ public enum SpawnPosition
 public class Spawner : MonoBehaviour
 {
     [Header("Spawn")]
-    [Tooltip("If this is left empty Main area will be used")]
+    [Tooltip("If this is left empty GameArea.Main will be used")]
     public GameArea spawnArea;
     [Tooltip("Reference objects to be spawn")]
     public GameObject[] reference;
@@ -71,6 +71,15 @@ public class Spawner : MonoBehaviour
             spawnArea = GameArea.Main;
     }
 
+    public void Restart()
+    {
+        StopCoroutine(Start());
+        foreach (var id in _referenceId)
+        {
+            ObjectPool.ClearPool(id);
+        }
+        StartCoroutine(Start());
+    }
 
     private int GetNextIndex()
     {

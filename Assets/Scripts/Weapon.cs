@@ -5,6 +5,7 @@ public class Weapon : MonoBehaviour
 {
     public new string name;
     public GameObject projectile;
+    int _projectileId;
 
     [Range(-5f, 5f)]
     public float firingOffset = 0.5f;
@@ -22,7 +23,6 @@ public class Weapon : MonoBehaviour
     int _emmitterIndex = -1;
 
     Collider2D _shipCollider2D;
-    int _projectileId;
 
     void Awake()
     {

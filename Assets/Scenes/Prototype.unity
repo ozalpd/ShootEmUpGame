@@ -2689,16 +2689,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69efe9dcd2f9c4e128f19fa6441d8566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 11.25, y: 20}
   gizmoColor: {r: 0, g: 0, b: 1, a: 0.2}
-  _area:
-    serializedVersion: 2
-    x: -5.625
-    y: -10
-    width: 11.25
-    height: 20
---- !u!4 &1737709221
-Transform:
+--- !u!224 &1737709221
+RectTransform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -2710,6 +2703,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1737709222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3966,9 +3964,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d87d8a1949be41699be945bbb51a06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnArea: {fileID: 0}
   reference:
   - {fileID: 1869191564351164, guid: edcc77f831e004f2ca2197c6b0dcb0d0, type: 2}
   spawnPosition: 0
+  spawnRandomly: 1
   minRate: 0.1
   maxRate: 2
   number: 29

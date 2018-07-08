@@ -139,17 +139,37 @@ public static class GameManager
 
     public static void RestartGame()
     {
-        LivesChanged = null;
-        ScoreChanged = null;
-        DamageChanged = null;
-        HighScoreChanged = null;
-        GameStateChanged = null;
+        ObjectPool.ClearAllPools();
+
+        var spawners = Object.FindObjectsOfType<Spawner>();
+        foreach (var s in spawners)
+        {
+            s.Restart();
+        }
+
+        var players = Object.FindObjectsOfType<AbstractPlayerController>();
+        foreach (var p in players)
+        {
+            p.ResetPlayer();
+        }
+
+        var savedTransforms = Object.FindObjectsOfType<SaveTransform>();
+        foreach (var t in savedTransforms)
+        {
+            if (t.IsSaved)
+                t.RestoreTransform();
+        }
 
         Lives = startingLives;
         Score = 0;
         Damage = 0;
 
-        SceneManager.LoadScene(0);
+        //LivesChanged = null;
+        //ScoreChanged = null;
+        //DamageChanged = null;
+        //HighScoreChanged = null;
+        //GameStateChanged = null;
+        //SceneManager.LoadScene(0);
 
         GameState = GameState.Running;
     }

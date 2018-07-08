@@ -736,6 +736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 242302218}
   - component: {fileID: 242302219}
+  - component: {fileID: 242302220}
   m_Layer: 0
   m_Name: Anchor
   m_TagString: Untagged
@@ -750,7 +751,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 242302217}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1737709221}
@@ -772,6 +773,18 @@ MonoBehaviour:
   reference: {fileID: 395774433}
   speed: 50
   rotationSpeed: 60
+--- !u!114 &242302220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 242302217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d98b8a5ed4943158b6e319bf9e718a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoSave: 1
 --- !u!1 &252423028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,7 +1153,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 12
+  far clip plane: 11
   field of view: 60
   orthographic: 1
   orthographic size: 10
@@ -1166,8 +1179,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.30746707}
-  m_LocalScale: {x: 0.029282577, y: 0.029282577, z: 0.029282577}
+  m_LocalPosition: {x: 0, y: 0, z: -0.35}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 242302218}
   m_RootOrder: 1
@@ -1857,6 +1870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1092219724}
   - component: {fileID: 1092219725}
+  - component: {fileID: 1092219726}
   m_Layer: 0
   m_Name: Planets
   m_TagString: Untagged
@@ -1895,6 +1909,18 @@ MonoBehaviour:
   reference: {fileID: 1224243672}
   speed: 1
   rotationSpeed: 0
+--- !u!114 &1092219726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1092219723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d98b8a5ed4943158b6e319bf9e718a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoSave: 1
 --- !u!1001 &1104208641
 Prefab:
   m_ObjectHideFlags: 0
@@ -1908,7 +1934,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4221652379718564, guid: 1b69c8887024c42deaa64773a8c9411a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4221652379718564, guid: 1b69c8887024c42deaa64773a8c9411a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1933,10 +1959,6 @@ Prefab:
     - target: {fileID: 4221652379718564, guid: 1b69c8887024c42deaa64773a8c9411a, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4221652379718564, guid: 1b69c8887024c42deaa64773a8c9411a, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b69c8887024c42deaa64773a8c9411a, type: 2}
@@ -2030,6 +2052,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1224243672}
   - component: {fileID: 1224243673}
+  - component: {fileID: 1224243674}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -2044,7 +2067,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1224243671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0078744795, y: -0.45237383, z: -0.015539779}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 782348799}
@@ -2065,6 +2088,18 @@ MonoBehaviour:
   reference: {fileID: 1737709221}
   speed: 10
   rotationSpeed: 0
+--- !u!114 &1224243674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1224243671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d98b8a5ed4943158b6e319bf9e718a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoSave: 1
 --- !u!1 &1233338675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2855,7 +2890,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 519420031}
-  m_PlaneDistance: 11
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

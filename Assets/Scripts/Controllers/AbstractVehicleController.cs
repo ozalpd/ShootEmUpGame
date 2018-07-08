@@ -20,6 +20,8 @@ public class AbstractVehicleController : AbstractPlayerController
     protected int _thrustYHashId;
 
     protected List<Weapon> _weapons;
+    Weapon _defaultWeapon;
+    SaveTransform _saveTransform;
 
     protected virtual void Awake()
     {
@@ -33,11 +35,15 @@ public class AbstractVehicleController : AbstractPlayerController
             _shieldHashId = _animator.GetLayerIndex("Shield"); //If no layer Shield, throws an error
         }
 
-        _weapons = new List<Weapon>();
-        if (Weapon == null)
+        _defaultWeapon = GetComponentInChildren<Weapon>();
+        if (_defaultWeapon == null)
         {
             Debug.LogWarning("A Weapon instance could not be found!");
         }
+        _weapons = new List<Weapon>();
+        _weapons.Add(_defaultWeapon);
+
+        _saveTransform = GetComponent<SaveTransform>();
     }
 
     public override bool Firing
@@ -108,7 +114,9 @@ public class AbstractVehicleController : AbstractPlayerController
         get
         {
             if (_weapon == null)
-                _weapon = GetComponentInChildren<Weapon>();
+            {
+                _weapon = _defaultWeapon;
+            }
 
             return _weapon;
         }
@@ -127,11 +135,22 @@ public class AbstractVehicleController : AbstractPlayerController
         Thrust = Vector2.zero;
         Firing = Shielding = false;
 
-        transform.rotation = Quaternion.identity;
-        transform.position = Vector3.zero;
+        if (_saveTransform != null && _saveTransform.IsSaved)
+        {
+            _saveTransform.RestoreTransform();
+        }
+        else
+        {
+            transform.rotation = Quaternion.identity;
+            transform.position = Vector3.zero;
+        }
 
-        Weapon = _weapons.ElementAt(0);
-        gameObject.SendMessage("Repair");
+        //Weapon = _weapons.ElementAt(0);
+        foreach (var w in _weapons)
+        {
+            w.gameObject.SetActive(false);
+        }
+        SwitchWeapon(_defaultWeapon);
     }
 
     public override void SwitchWeapon(Weapon weapon)
@@ -139,9 +158,9 @@ public class AbstractVehicleController : AbstractPlayerController
         if (Weapon.name.Equals(weapon.name))
             return;
 
+        bool isFiring = Firing;
         var inListWeapon = _weapons.FirstOrDefault(w => w.name.Equals(weapon.name));
 
-        bool isFiring = Firing;
         Firing = false; //first, we need to stop current one
         Weapon.gameObject.SetActive(false);
 
