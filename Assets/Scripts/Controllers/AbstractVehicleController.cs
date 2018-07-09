@@ -47,7 +47,7 @@ public class AbstractVehicleController : AbstractPlayerController
 
 
         //GameManager.Lives = 1;
-        GameManager.Damage = 90;
+        //GameManager.Damage = 90;
     }
 
     public override bool Firing
