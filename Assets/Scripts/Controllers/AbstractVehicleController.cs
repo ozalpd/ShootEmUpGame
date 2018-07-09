@@ -133,7 +133,7 @@ public class AbstractVehicleController : AbstractPlayerController
     }
     Weapon _weapon;
 
-    public override void SetToDefaults()
+    public override void ResetValues()
     {
         Steering = 0;
         Thrust = Vector2.zero;

@@ -29,7 +29,7 @@ public class ObjectPool : MonoBehaviour
     static Dictionary<int, ObjectPool> _pools = new Dictionary<int, ObjectPool>();
 
     /// <summary>
-    /// Clears all active game objects in this pool.
+    /// Clears all active game objects in this pool instance.
     /// </summary>
     public void Clear()
     {
@@ -41,7 +41,7 @@ public class ObjectPool : MonoBehaviour
     }
 
     /// <summary>
-    /// Clears all active game objects in the specified pool.
+    /// Clears all active game objects in the specified pool instance.
     /// </summary>
     /// <param name="originalId">InstanceID of the original GameObject.</param>
     public static void ClearPool(int originalId)
@@ -53,7 +53,7 @@ public class ObjectPool : MonoBehaviour
     }
 
     /// <summary>
-    /// Clears all active game objects in all pools.
+    /// Clears all active game objects in all pool instances.
     /// </summary>
     public static void ClearAllPools()
     {

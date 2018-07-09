@@ -60,9 +60,8 @@ public class Weapon : MonoBehaviour
 
     void fire()
     {
-        //if (emmitters == null || emmitters.Length > 0)
-            //Debug.LogWarning("Missing emmitters!");
-        //Above two line is not a good idea! Compiler's error is better.
+        if (emmitters == null || emmitters.Length == 0)
+            Debug.LogWarning("Weapon has no emmitters!");
 
         if (fireAllAtOnce)
         {

@@ -822,6 +822,7 @@ MonoBehaviour:
   - {fileID: 1917284351649936, guid: 5cf8f1aaade2df44a9d359bcf92acb0e, type: 2}
   - {fileID: 1196538387293512, guid: af78a37b8bcd26641bbc7c1010384a7b, type: 2}
   - {fileID: 1513278157872874, guid: 1eaaf54edc50f53428e6ef244a284dbf, type: 2}
+  - {fileID: 1917284351649936, guid: 5cf8f1aaade2df44a9d359bcf92acb0e, type: 2}
   spawnPosition: 0
   spawnRandomly: 1
   minRate: 0.05

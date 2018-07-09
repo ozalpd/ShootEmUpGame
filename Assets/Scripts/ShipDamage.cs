@@ -101,7 +101,7 @@ public class ShipDamage : MonoBehaviour
             r.enabled = false;
         }
 
-        GetComponent<AbstractPlayerController>().SetToDefaults();
+        GetComponent<AbstractPlayerController>().ResetValues();
 
         yield return new WaitForSeconds(1);
         //enable renderers
