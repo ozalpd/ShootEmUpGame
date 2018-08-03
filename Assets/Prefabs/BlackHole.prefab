@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1869191564351164}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1869191564351164
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4976522731408068}
   - component: {fileID: 114314489127577060}
@@ -32,7 +32,7 @@ GameObject:
 --- !u!4 &4976522731408068
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1869191564351164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -46,7 +46,7 @@ Transform:
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1869191564351164}
   m_Enabled: 1
@@ -63,7 +63,7 @@ Animator:
 --- !u!114 &114314489127577060
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1869191564351164}
   m_Enabled: 1
@@ -71,13 +71,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d87d8a1949be41699be945bbb51a06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnArea: {fileID: 0}
   reference:
   - {fileID: 1465918129423440, guid: df26c4f76eb94471b81372697e427475, type: 2}
   - {fileID: 1749781095502084, guid: 67fe4b8a5cb6d477db06f49f9fbb303a, type: 2}
   spawnPosition: 3
+  spawnRandomly: 1
   minRate: 0.1
   maxRate: 6
-  number: 15
+  number: 25
   spreadAngle: 360
   angle: 180
   minSpeed: 5
@@ -88,7 +90,7 @@ MonoBehaviour:
 --- !u!212 &212680699486472200
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1869191564351164}
   m_Enabled: 1
@@ -130,3 +132,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
