@@ -93,7 +93,7 @@ TextureImporter:
       213: 21300058
     second: Smoke30Frames_0_29
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -113,6 +113,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -121,9 +123,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -144,10 +146,14 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -211,6 +217,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 1
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -864,6 +882,37 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Smoke30Frames_0_16: 21300032
+      Smoke30Frames_0_4: 21300008
+      Smoke30Frames_0_22: 21300044
+      Smoke30Frames_0_24: 21300048
+      Smoke30Frames_0_25: 21300050
+      Smoke30Frames_0_3: 21300006
+      Smoke30Frames_0_18: 21300036
+      Smoke30Frames_0_6: 21300012
+      Smoke30Frames_0_8: 21300016
+      Smoke30Frames_0_28: 21300056
+      Smoke30Frames_0_14: 21300028
+      Smoke30Frames_0_9: 21300018
+      Smoke30Frames_0_0: 21300000
+      Smoke30Frames_0_7: 21300014
+      Smoke30Frames_0_5: 21300010
+      Smoke30Frames_0_2: 21300004
+      Smoke30Frames_0_10: 21300020
+      Smoke30Frames_0_23: 21300046
+      Smoke30Frames_0_19: 21300038
+      Smoke30Frames_0_11: 21300022
+      Smoke30Frames_0_26: 21300052
+      Smoke30Frames_0_20: 21300040
+      Smoke30Frames_0_15: 21300030
+      Smoke30Frames_0_21: 21300042
+      Smoke30Frames_0_29: 21300058
+      Smoke30Frames_0_17: 21300034
+      Smoke30Frames_0_27: 21300054
+      Smoke30Frames_0_1: 21300002
+      Smoke30Frames_0_13: 21300026
+      Smoke30Frames_0_12: 21300024
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
